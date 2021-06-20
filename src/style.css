@@ -36,7 +36,8 @@ nav a:hover {
   align-items: center;
 }
 
-.auth-page button {
+.auth-page button,
+.job button {
   padding: 8px 30px;
   font-size: 1.2rem;
   background: rgb(29, 191, 115);
@@ -47,7 +48,8 @@ nav a:hover {
   cursor: pointer;
   transition: all 0.3s linear;
 }
-.auth-page button:hover {
+.auth-page button:hover,
+.job button:hover {
   box-shadow: 2px 2px 5px gray;
 }
 
@@ -80,4 +82,51 @@ nav a:hover {
 }
 .input-container label {
   font-size: 1.2rem;
+}
+
+/* job */
+.job {
+  padding: 10px;
+  border: 1px solid lightblue;
+}
+.job p {
+  margin-bottom: 8px;
+}
+
+/* home page */
+.home-page .filter {
+  width: 100%;
+  padding: 5px 10px;
+  text-align: right;
+}
+.home-page .filter select {
+  font-size: 1rem;
+  background: rgb(180, 255, 220);
+  padding: 5px;
+  border: 1px solid rgb(29, 191, 115);
+  border-radius: 5px;
+  cursor: pointer;
+  min-width: 200px;
+}
+.home-page .pagination {
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.home-page .pagination button {
+  padding: 10px 20px;
+  margin: 0 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  background: rgb(180, 255, 220);
+  color: #000;
+  border: none;
+  border-radius: 3px;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+.home-page .pagination button.active {
+  background: rgb(29, 191, 115);
+  color: #fff;
 }
