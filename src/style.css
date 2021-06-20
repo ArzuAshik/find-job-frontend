@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+.page {
+  min-height: calc(100vh - 80px);
+}
+
+/* navbar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: rgb(29, 191, 115);
+  height: 80px;
+}
+nav a {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: all 0.3s linear;
+}
+nav a:hover {
+  color: rgb(240, 240, 240);
+}
+
+/* auth-page */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-page button {
+  padding: 8px 30px;
+  font-size: 1.2rem;
+  background: rgb(29, 191, 115);
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+.auth-page button:hover {
+  box-shadow: 2px 2px 5px gray;
+}
+
+.auth-page p {
+  margin-top: 10px;
+}
+
+.auth-page p span {
+  color: rgb(29, 191, 115);
+  cursor: pointer;
+  padding: 3px;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s linear;
+}
+.auth-page p span:hover {
+  border-bottom: 1px solid rgb(29, 191, 115);
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 500px;
+  justify-content: space-evenly;
+  min-height: 80px;
+}
+.input-container input,
+.input-container select {
+  font-size: 1.2rem;
+  padding: 5px;
+}
+.input-container label {
+  font-size: 1.2rem;
+}

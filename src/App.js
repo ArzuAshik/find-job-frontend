@@ -10,6 +10,7 @@ import LoginSignUp from "./pages/LoginSignUp/LoginSignUp";
 import NotFound from "./pages/NotFound/NotFound";
 import Payment from "./pages/Payment/Payment";
 import Profile from "./pages/Profile/Profile";
+import "./style.css";
 
 export const UserContext = createContext();
 
