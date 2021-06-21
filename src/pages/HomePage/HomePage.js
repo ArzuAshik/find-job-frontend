@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Job from '../../components/Job';
 
-const HomePage = () => {
+const HomePage = () => {    
     const [allJobs, setAllJobs] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [jobsToShow, setJobsToShow] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -12,6 +13,7 @@ const HomePage = () => {
         .then(result => {
             setAllJobs(result);
             setJobsToShow(result);
+            setIsLoading(false);
         });
     }, []);
 
@@ -57,6 +59,9 @@ const HomePage = () => {
                 </select>
             </div>
             {
+                isLoading ?
+                <h1>Loading...</h1>
+                :
                 jobsToShow.slice((20 * currentPage) - 20, currentPage * 20).map(job => <Job key={job._id} job={job}/>)
             }
             <div className="pagination">

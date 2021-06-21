@@ -12,7 +12,6 @@ const Job = ({job}) => {
         if(userInfo.userID){
             console.log(jobID);
         }else{
-            console.log("jj");
             addToast("Please Login To Apply.", {
                 appearance: 'warning',
                 autoDismiss: true,
