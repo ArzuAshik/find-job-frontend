@@ -137,12 +137,9 @@ const LoginSignUp = () => {
                 </div>
                 {
                     isNewUser &&
-                    // <div className="input-container">
-                        <label style={{marginBottom: "5px", display: "block"}}><input type="checkbox" onChange={(e) => {
-                            setIsEmployer(e.target.checked);
-                        }} /> I'm a Employer</label>
-                        
-                    // </div>
+                    <label style={{marginBottom: "5px", display: "block"}}><input type="checkbox" onChange={(e) => {
+                        setIsEmployer(e.target.checked);
+                    }} /> I'm a Employer</label>
                 }
                 {
                     isNewUser && isEmployer &&
@@ -158,7 +155,7 @@ const LoginSignUp = () => {
                     </div>
                 }
             </form>
-            {!isEmployer && <button onSubmit={handleSubmit}>{isNewUser ? "Sign Up" : "Login" }</button>}
+            {!isEmployer && <button onClick={handleSubmit}>{isNewUser ? "Sign Up" : "Login" }</button>}
             {
                 isEmployer &&
                 <div className="card">
@@ -168,7 +165,7 @@ const LoginSignUp = () => {
                 </div>
             }
             {                    
-                <p>{isNewUser ? "Already" : "Don't"}  have an account? <span onClick={() => setIsNewUser(!isNewUser)}>{isNewUser ? "Login" : "Sign Up"}</span></p>
+                <p>{isNewUser ? "Already" : "Don't"}  have an account? <span onClick={() => {setIsNewUser(!isNewUser); setIsEmployer(false);}}>{isNewUser ? "Login" : "Sign Up"}</span></p>
             }
             </div>
         </div>
