@@ -12,7 +12,7 @@ const LoginSignUp = () => {
         name: "",
         email: "",
         password: "",
-        pack: 0
+        pack: 10
     });
     const { addToast } = useToasts();
     const history = useHistory();
@@ -26,7 +26,7 @@ const LoginSignUp = () => {
                 // creating new account
                 fetch("https://find-job-server.herokuapp.com/sign-up", {
                     method: "POST",
-                    body: JSON.stringify({name, email, password, accountBalance: pack, accountType: isEmployer ? "1" : "0"}),
+                    body: JSON.stringify({name, email, password, accountBalance: parseInt(pack), accountType: isEmployer ? "1" : "0"}),
                     headers: { "Content-type": "application/json; charset=UTF-8" }
                 })
                 .then(res => res.json())
@@ -94,20 +94,20 @@ const LoginSignUp = () => {
                         <label htmlFor="name" >
                         Enter Your Full Name
                         </label>
-                        <input onBlur={e => handleInput(e)} id="name" type="text" name="name" placeholder="Your Full Name" />
+                        <input onChange={e => handleInput(e)} id="name" type="text" name="name" placeholder="Your Full Name" />
                     </div>
                 }
                 <div className="input-container">
                     <label htmlFor="email" >
                         Enter Your Email
                     </label>
-                    <input onBlur={e => handleInput(e)} id="email" type="email" name="email" placeholder="Email" />
+                    <input onChange={e => handleInput(e)} id="email" type="email" name="email" placeholder="Email" />
                 </div>
                 <div className="input-container">
                     <label htmlFor="password" >
                         Enter Your password
                     </label>
-                    <input onBlur={e => handleInput(e)} id="password" type="password" name="password" placeholder="Password" />
+                    <input onChange={e => handleInput(e)} id="password" type="password" name="password" placeholder="Password" />
                 </div>
                 {
                     isNewUser &&
@@ -125,9 +125,9 @@ const LoginSignUp = () => {
                         Select A Package
                         </label>
                         <select onChange={e => handleInput(e)} name="pack" id="pack">
-                            <option value="0">Basic Account</option>
-                            <option value="1">Standard Account</option>
-                            <option value="2">Premium Account</option>
+                            <option value={10}>Basic Account</option>
+                            <option value={20}>Standard Account</option>
+                            <option value={30}>Premium Account</option>
                         </select>
                     </div>
                 }

@@ -9,14 +9,19 @@ const Job = ({job}) => {
     const { addToast } = useToasts();
     
     function handleApply(jobID){
-        if(userInfo.userID){
-            console.log(jobID);
-        }else{
-            addToast("Please Login To Apply.", {
-                appearance: 'warning',
+        console.log(jobID);
+        fetch("https://find-job-server.herokuapp.com/apply-for-job", {
+        method: "POST",
+        body: JSON.stringify({jobID, name: userInfo.name, userID: userInfo.userID}),
+        headers: { "Content-type": "application/json; charset=UTF-8" }
+        })
+        .then(res => res.json())
+        .then( ({status, message}) => {
+            addToast(message, {
+                appearance: status,
                 autoDismiss: true,
-              });
-        }
+            });
+        });
     }
     return (
         <div className="job">

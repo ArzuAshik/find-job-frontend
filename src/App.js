@@ -4,9 +4,10 @@ import {
 } from "react-router-dom";
 import { ToastProvider } from 'react-toast-notifications';
 import Navbar from "./components/Navbar";
-import Admin from "./pages/Admin/Admin";
 import HomePage from "./pages/HomePage/HomePage";
+import JobApplication from "./pages/JobApplication/JobApplication";
 import LoginSignUp from "./pages/LoginSignUp/LoginSignUp";
+import NewJob from "./pages/NewJob/NewJob";
 import NotFound from "./pages/NotFound/NotFound";
 import Payment from "./pages/Payment/Payment";
 import Profile from "./pages/Profile/Profile";
@@ -26,7 +27,8 @@ function App() {
             <Route path="/auth" component={LoginSignUp} />
             <Route path="/payment" component={Payment} />
             <Route path="/profile" component={Profile} />
-            <Route path="/admin" component={Admin} />
+            <Route path="/create-job" component={NewJob} />
+            <Route path="/job-applications/:jobID" component={JobApplication} />
             <Route path="*" component={NotFound} />
           </Switch>
         </ToastProvider>

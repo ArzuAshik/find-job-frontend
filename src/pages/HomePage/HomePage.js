@@ -1,21 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { UserContext } from '../../App';
 import Job from '../../components/Job';
 
-const HomePage = () => {    
+const HomePage = () => {
+    // eslint-disable-next-line
+    const [userInfo, setUserInfo] = useContext(UserContext);    
     const [allJobs, setAllJobs] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [jobsToShow, setJobsToShow] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
 
+    const history = useHistory();
+
+    
     useEffect(() => {
-        fetch("https://find-job-server.herokuapp.com/all-jobs")
-        .then(res => res.json())
-        .then(result => {
-            setAllJobs(result);
-            setJobsToShow(result);
-            setIsLoading(false);
-        });
-    }, []);
+        if(!userInfo.userID){
+            history.push("/auth");
+        }
+
+        if(userInfo.accountType === "0"){
+            fetch("https://find-job-server.herokuapp.com/all-jobs")
+            .then(res => res.json())
+            .then(result => {
+                setAllJobs(result);
+                setJobsToShow(result);
+                setIsLoading(false);
+            });
+        }
+        else{
+            history.push("/profile");
+        }
+    }, [userInfo.userID, userInfo.accountType, history]);
 
     function handleFilter(filterBy){
         if(filterBy === "0"){
@@ -50,11 +66,11 @@ const HomePage = () => {
         <div className="page home-page">
             <div className="filter">
                 <select name="filter" id="filter" onChange={(e) => handleFilter(e.target.value)} >
-                    <option value="0">Default</option>
                     <option value="Web Development">Web Development</option>
                     <option value="Graphics Design">Graphics Design</option>
                     <option value="SEO">SEO</option>
                     <option value="Wordpress Design">Wordpress Design</option>
+                    <option value="Digital Marketing">Digital Marketing</option>
                     <option value="Data Entry">Data Entry</option>
                 </select>
             </div>

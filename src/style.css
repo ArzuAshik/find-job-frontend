@@ -37,7 +37,8 @@ nav a:hover {
 }
 
 .auth-page button,
-.job button {
+.job button,
+.new-job form button {
   padding: 8px 30px;
   font-size: 1.2rem;
   background: rgb(29, 191, 115);
@@ -49,7 +50,8 @@ nav a:hover {
   transition: all 0.3s linear;
 }
 .auth-page button:hover,
-.job button:hover {
+.job button:hover,
+.new-job form button:hover {
   box-shadow: 2px 2px 5px gray;
 }
 
@@ -129,4 +131,76 @@ nav a:hover {
 .home-page .pagination button.active {
   background: rgb(29, 191, 115);
   color: #fff;
+}
+
+/* profile page */
+.profile .logout-container {
+  text-align: right;
+  padding: 5px 15px;
+}
+.profile .logout-container button {
+  padding: 10px 15px;
+  background: rgb(255, 0, 150);
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.profile h2 {
+  margin-top: 50px;
+  text-align: center;
+  color: lightgray;
+}
+.profile table {
+  width: calc(100% - 40px);
+  text-align: center;
+  border-collapse: collapse;
+  margin: 20px;
+}
+.profile table th,
+.profile table td {
+  border: 1px solid gray;
+  padding: 10px;
+}
+
+.profile table button {
+  padding: 10px 20px;
+  background: rgb(29, 191, 115);
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+.profile table button.pending {
+  color: #000;
+  background: rgb(255, 238, 180);
+}
+
+.job-application h2 {
+  padding: 20px;
+  text-align: center;
+  background: rgb(243, 128, 107);
+  color: #fff;
+}
+.job-application ul {
+  list-style: none;
+  margin: auto;
+  font-size: 1.4rem;
+}
+.job-application ul li {
+  padding: 15px;
+  background: rgb(29, 191, 115);
+  color: #fff;
+}
+.job-application ul li:nth-child(2n) {
+  background: rgb(180, 255, 220);
+  color: #000;
+}
+
+/* new job */
+.new-job form {
+  max-width: 500px;
+  margin: auto;
 }
