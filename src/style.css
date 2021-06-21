@@ -204,3 +204,11 @@ nav a:hover {
   max-width: 500px;
   margin: auto;
 }
+
+.card {
+  padding: 10px 0;
+}
+
+.card button {
+  margin-top: 10px;
+}

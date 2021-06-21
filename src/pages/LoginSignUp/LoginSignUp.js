@@ -1,13 +1,17 @@
-import React, { useContext, useState } from 'react';
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { UserContext } from '../../App';
+import CheckoutForm from "../../components/CheckoutForm";
 
 const LoginSignUp = () => {
     // eslint-disable-next-line
     const [userInfo, setUserInfo] = useContext(UserContext);
     const [isNewUser, setIsNewUser] = useState(false);
     const [isEmployer, setIsEmployer] = useState(false);
+    const [paymentSucceeded, setPaymentSucceeded] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -17,14 +21,11 @@ const LoginSignUp = () => {
     const { addToast } = useToasts();
     const history = useHistory();
 
-    function handleSubmit(e){
-        e.preventDefault();
+    const promise = loadStripe("pk_test_51J4nbqCGTM1umYl0bvwI8l4BHSMvlKFTOod82ROvWoNHrslcwHRK52oVCYBvK1Dg4wPYEurWWHUZOZ4N4fNLMBn900Nw60Bq4q");
+
+    function createAccount(){
         const {name, email, password, pack} = formData;
-        // sign up part
-        if(isNewUser){
-            if(name && email && password){
-                // creating new account
-                fetch("https://find-job-server.herokuapp.com/sign-up", {
+        fetch("https://find-job-server.herokuapp.com/sign-up", {
                     method: "POST",
                     body: JSON.stringify({name, email, password, accountBalance: parseInt(pack), accountType: isEmployer ? "1" : "0"}),
                     headers: { "Content-type": "application/json; charset=UTF-8" }
@@ -41,13 +42,24 @@ const LoginSignUp = () => {
                     }
                     // account creation failed
                     else{
-                        console.log(result);
                         addToast("Failed to create new account. Please try again.", {
                             appearance: result.status,
                             autoDismiss: true,
                           });
                     }
-                })
+                });
+    };
+
+    function handleSubmit(e){
+        e.preventDefault();
+        const {name, email, password} = formData;
+        // sign up part
+        if(isNewUser){
+            if(name && email && password){
+                // creating new account
+                if(!isEmployer){
+                    createAccount();
+                }
             }else{
                 addToast("Please Fill Up the form Properly.", {
                     appearance: 'error',
@@ -85,9 +97,23 @@ const LoginSignUp = () => {
         newFormData[name] = value;
         setFormData(newFormData);
     }
+
+    function createEmployerAccount(){
+        if(paymentSucceeded){
+            addToast("Payment Successful.", {
+                appearance: 'success',
+                autoDismiss: true,
+              });
+            setIsEmployer(false);
+            createAccount();
+        }
+    }
+    // eslint-disable-next-line
+    useEffect(createEmployerAccount, [paymentSucceeded])
     return (
         <div className="page auth-page">
-            <form onSubmit={e => handleSubmit(e)} >                
+            <div>
+            <form >                
                 {
                     isNewUser &&
                     <div className="input-container">
@@ -131,15 +157,20 @@ const LoginSignUp = () => {
                         </select>
                     </div>
                 }
-                {
-                    isEmployer && <p>Payment</p>
-                }
-                <button type="submit">{isNewUser ? "Sign Up" : "Login" }</button>
-                {
-                     
-                    <p>{isNewUser ? "Already" : "Don't"}  have an account? <span onClick={() => setIsNewUser(!isNewUser)}>{isNewUser ? "Login" : "Sign Up"}</span></p>
-                }
             </form>
+            {!isEmployer && <button onSubmit={handleSubmit}>{isNewUser ? "Sign Up" : "Login" }</button>}
+            {
+                isEmployer &&
+                <div className="card">
+                    <Elements stripe={promise}>
+                        <CheckoutForm amount={formData.pack} setPaymentSucceeded={setPaymentSucceeded} />            
+                    </Elements>
+                </div>
+            }
+            {                    
+                <p>{isNewUser ? "Already" : "Don't"}  have an account? <span onClick={() => setIsNewUser(!isNewUser)}>{isNewUser ? "Login" : "Sign Up"}</span></p>
+            }
+            </div>
         </div>
     );
 };
